@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f4f0">
+  <title>{% block title %}Biblioteca Aurora{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') if session.get('username') else url_for('login') }}" aria-label="Biblioteca Aurora, inicio">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span><strong>aurora</strong><small>biblioteca personal</small></span>
+    </a>
+    {% if session.get('username') %}
+    <div class="account">
+      <span class="account-name"><span class="online-dot"></span>{{ session.get('username') }}</span>
+      <form method="post" action="{{ url_for('logout') }}">
+        <button class="button button-quiet button-small" type="submit" data-testid="logout-button">Cerrar sesión</button>
+      </form>
+    </div>
+    {% endif %}
+  </header>
+  <main class="page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack" aria-live="polite">
+        {% for category, message in messages %}
+          <div class="flash flash--{{ category }}" role="{{ 'alert' if category == 'error' else 'status' }}" data-testid="flash-{{ category }}">
+            <span class="flash-icon" aria-hidden="true">{{ '!' if category == 'error' else '✓' }}</span>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><span>Biblioteca Aurora</span><span>Un pequeño lugar para tus grandes lecturas.</span></footer>
+</body>
+</html>

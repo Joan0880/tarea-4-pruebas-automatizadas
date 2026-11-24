@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Iniciar sesión · Biblioteca Aurora{% endblock %}
+{% block content %}
+<section class="login-layout">
+  <div class="login-copy">
+    <p class="eyebrow"><span class="eyebrow-line"></span> TU ESPACIO DE LECTURA</p>
+    <h1>Un libro abierto,<br><em>un mundo nuevo.</em></h1>
+    <p class="lead">Organiza tu colección, encuentra tu próxima lectura y cuida cada historia que guardas.</p>
+    <div class="book-stack" aria-hidden="true">
+      <span class="book-spine spine-one"></span><span class="book-spine spine-two"></span><span class="book-spine spine-three"></span>
+      <span class="book-shadow"></span>
+    </div>
+  </div>
+  <section class="panel login-panel" aria-labelledby="login-title">
+    <div class="panel-icon" aria-hidden="true">✳</div>
+    <p class="eyebrow">QUÉ BUENO VERTE</p>
+    <h2 id="login-title">Inicia sesión</h2>
+    <p class="muted">Entra para continuar con tu colección.</p>
+    <form class="form-stack" method="post" action="{{ url_for('login') }}" id="login-form">
+      <label for="username">Usuario</label>
+      <input id="username" name="username" type="text" autocomplete="username" placeholder="Tu usuario" required maxlength="80" data-testid="username">
+      <label for="password">Contraseña</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required maxlength="120" data-testid="password">
+      <button class="button button-primary button-wide" id="login-submit" type="submit">Entrar a mi biblioteca <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="demo-hint"><span aria-hidden="true">ⓘ</span> Acceso de demostración: <strong>demo</strong> · <strong>Selenium123</strong></p>
+  </section>
+</section>
+{% endblock %}

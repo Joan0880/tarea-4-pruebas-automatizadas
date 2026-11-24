@@ -1,0 +1,16 @@
+Issue Type,Summary,Description,Labels
+Story,US-01 Inicio de sesión,"Como persona encargada de mi biblioteca, quiero iniciar sesión con mis credenciales, para mantener mi colección protegida.
+Aceptación: demo/Selenium123 abre la estantería; se puede cerrar sesión; una visita sin sesión exige autenticación.
+Rechazo: credenciales incorrectas o vacías no crean sesión; rutas privadas requieren autenticación.",selenium;login
+Story,US-02 Agregar libros,"Como persona lectora, quiero registrar título, autor, género y año, para conservar mi catálogo.
+Aceptación: título y autor hasta 120/80 caracteres; género opcional hasta 40; años 1450-2100 inclusive.
+Rechazo: título/autor vacíos, año inválido/fuera de rango o título+autor duplicados no se guardan.",selenium;crud;create
+Story,US-03 Consultar y buscar,"Como persona lectora, quiero ver y filtrar mi colección, para encontrar libros por título, autor o género.
+Aceptación: se muestran registros, hay coincidencia parcial y se puede limpiar el filtro.
+Rechazo: consulta de hasta 100 caracteres; una búsqueda sin coincidencias informa el estado vacío y no altera datos.",selenium;read;search
+Story,US-04 Actualizar libro,"Como persona lectora, quiero corregir los datos de un libro, para mantener el catálogo preciso.
+Aceptación: editar carga los datos actuales y guardar modifica el mismo registro; año 1450-2100 inclusive.
+Rechazo: título/autor vacíos, datos fuera de límites o duplicados no se guardan.",selenium;crud;update
+Story,US-05 Eliminar libro,"Como persona lectora, quiero quitar libros de mi colección, para mantener una estantería actualizada.
+Aceptación: se confirma la eliminación y retirar el último libro muestra el estado vacío.
+Rechazo: cancelar conserva el libro; un identificador inexistente informa que ya no está disponible.",selenium;crud;delete

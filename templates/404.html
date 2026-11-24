@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Página no encontrada · Biblioteca Aurora{% endblock %}
+{% block content %}
+<section class="empty-state not-found"><span class="empty-icon" aria-hidden="true">✳</span><p class="eyebrow">404 · PÁGINA NO ENCONTRADA</p><h1>Esta página no está en la estantería.</h1><p>Puede que el enlace haya cambiado.</p><a class="button button-primary" href="{{ url_for('index') if session.get('username') else url_for('login') }}">Volver a un lugar conocido</a></section>
+{% endblock %}

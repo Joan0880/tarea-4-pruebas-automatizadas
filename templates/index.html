@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Mi colección · Biblioteca Aurora{% endblock %}
+{% block content %}
+<section class="welcome-row">
+  <div>
+    <p class="eyebrow"><span class="eyebrow-line"></span> TU COLECCIÓN</p>
+    <h1 id="page-title">Libros que <em>te acompañan.</em></h1>
+    <p class="lead">Guarda tus favoritos y encuentra rápido esa historia que tienes en mente.</p>
+  </div>
+  <div class="collection-count"><strong>{{ total }}</strong><span>{{ 'libro guardado' if total == 1 else 'libros guardados' }}</span><span class="count-spark" aria-hidden="true">✳</span></div>
+</section>
+
+<section class="workspace-grid">
+  <section class="panel add-panel" aria-labelledby="add-title">
+    <div class="section-heading"><span class="section-icon icon-add" aria-hidden="true">+</span><div><p class="eyebrow">NUEVA HISTORIA</p><h2 id="add-title">Agregar un libro</h2></div></div>
+    <p class="muted">Completa los datos para sumar una lectura.</p>
+    <form class="form-stack compact-form" method="post" action="{{ url_for('index') }}" id="create-book-form">
+      <label for="title">Título <span class="required-mark">*</span></label>
+      <input id="title" name="title" type="text" required maxlength="120" placeholder="Ej. El amor en los tiempos del cólera" data-testid="book-title">
+      <label for="author">Autor <span class="required-mark">*</span></label>
+      <input id="author" name="author" type="text" required maxlength="80" placeholder="Nombre del autor" data-testid="book-author">
+      <div class="form-row">
+        <div><label for="genre">Género <span class="optional-label">opcional</span></label><input id="genre" name="genre" type="text" maxlength="40" placeholder="Novela" data-testid="book-genre"></div>
+        <div><label for="year">Año <span class="required-mark">*</span></label><input id="year" name="year" type="number" required min="1450" max="2100" placeholder="2024" data-testid="book-year"></div>
+      </div>
+      <button class="button button-primary button-wide" type="submit" id="create-book-submit">Guardar en mi colección <span aria-hidden="true">↗</span></button>
+    </form>
+    <p class="field-note">El título y autor son obligatorios. Año permitido: 1450–2100.</p>
+  </section>
+
+  <section class="panel collection-panel" aria-labelledby="collection-title" data-testid="book-list">
+    <div class="collection-toolbar">
+      <div class="section-heading"><span class="section-icon icon-list" aria-hidden="true">▤</span><div><p class="eyebrow">UN VISTAZO</p><h2 id="collection-title">Mi estantería</h2></div></div>
+      <form class="search-form" method="get" action="{{ url_for('index') }}" role="search">
+        <label class="sr-only" for="search-query">Buscar libros</label>
+        <span class="search-icon" aria-hidden="true">⌕</span><input id="search-query" name="q" type="search" maxlength="100" value="{{ query }}" placeholder="Buscar título o autor…" data-testid="search-query">
+        <button class="button button-quiet button-small" id="search-submit" type="submit">Buscar</button>
+      </form>
+    </div>
+    {% if query %}<div class="filter-note">Resultados para <strong>“{{ query }}”</strong> <a href="{{ url_for('index') }}" id="clear-search">Limpiar</a></div>{% endif %}
+    {% if books %}
+      <div class="book-list">
+        {% for book in books %}
+        <article class="book-card" data-testid="book-row" data-book-id="{{ book.id }}">
+          <div class="book-cover cover-{{ loop.index0 % 4 }}" aria-hidden="true"><span>{{ (book.title[0] if book.title else 'L')|upper }}</span><i></i></div>
+          <div class="book-info"><h3 data-testid="row-title">{{ book.title }}</h3><p class="book-author">{{ book.author }}</p><div class="book-meta"><span>{{ book.genre or 'Sin género' }}</span><span class="meta-dot"></span><span>{{ book.year }}</span></div></div>
+          <div class="book-actions">
+            <a class="icon-button" href="{{ url_for('edit_book', book_id=book.id) }}" aria-label="Editar {{ book.title }}" title="Editar" data-testid="edit-book-{{ book.id }}">✎</a>
+            <form method="post" action="{{ url_for('delete_book', book_id=book.id) }}" onsubmit="return confirm('¿Eliminar este libro de tu colección?');">
+              <button class="icon-button icon-button-danger" type="submit" aria-label="Eliminar {{ book.title }}" title="Eliminar" data-testid="delete-book-{{ book.id }}">⌫</button>
+            </form>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state" data-testid="empty-state"><span class="empty-icon" aria-hidden="true">✳</span><h3>{% if query %}No encontramos coincidencias{% else %}Tu estantería está lista{% endif %}</h3><p>{% if query %}Prueba con otra palabra o limpia la búsqueda.{% else %}Agrega un libro para empezar a construir tu colección.{% endif %}</p></div>
+    {% endif %}
+    <p class="list-caption">{{ books|length }} {{ 'resultado' if books|length == 1 else 'resultados' }}{% if query %} · colección de {{ total }}{% endif %}</p>
+  </section>
+</section>
+{% endblock %}
