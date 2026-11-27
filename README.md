@@ -29,14 +29,6 @@ python -m pytest
 
 La suite levanta una instancia temporal de la aplicación y Chrome en modo headless. Cada escenario guarda una captura en `evidencias/capturas/` y `pytest-html` genera el reporte autocontenido en `evidencias/reporte.html`, con las capturas dentro del reporte.
 
-Después de ejecutar las pruebas, genera el MP4 de demostración a partir de las capturas Selenium:
-
-```powershell
-python scripts/create_demo_video.py
-```
-
-El video se guarda en `evidencias/video-demo.mp4`. Es un montaje de las capturas Selenium con el estado de cada escenario; sirve como vista previa, pero no sustituye la grabación continua en vivo que conviene entregar como video demostrativo público.
-
 Para ver el navegador durante una grabación local:
 
 ```powershell
@@ -72,10 +64,9 @@ Se automatizan 17 escenarios sobre cinco historias: autenticación; alta; consul
 - Historias y criterios de aceptación/rechazo: `docs/historias-de-usuario.md`.
 - CSV de importación de cinco historias en Jira: `docs/historias-jira.csv`.
 - Reporte y capturas: `evidencias/` (se generan al ejecutar la suite).
-- Montaje MP4 local de capturas: `evidencias/video-demo.mp4` (vista previa; no sustituye la grabación en vivo y se mantiene fuera del repositorio público).
 
 ## Publicación requerida por la consigna
 
 El código está listo para publicarse en un repositorio GitHub/Azure y las historias tienen un CSV listo para importar a Jira. Para cumplir la parte pública, publica las historias en un tablero Jira/Azure DevOps y sube una grabación continua de la ejecución a YouTube u OneDrive. No se incluyen enlaces ficticios ni se presenta una publicación local como si fuera pública.
 
-Guion sugerido para el video: mostrar la biblioteca, iniciar sesión, agregar/editar/buscar/eliminar un libro; ejecutar `python -m pytest` con `HEADLESS=false`; mostrar el resultado de las 16 pruebas y abrir el reporte HTML con capturas.
+Guion sugerido para el video: mostrar la biblioteca, iniciar sesión, agregar/editar/buscar/eliminar un libro; ejecutar `python -m pytest` con `HEADLESS=false`; mostrar el resultado de las 17 pruebas y abrir el reporte HTML con capturas.
